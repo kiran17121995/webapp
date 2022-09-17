@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-		node {
-			label 'agentfirst'
-		}
-	}
-
+    agent any
     stages {
         stage ('Compile Stage') {
 
