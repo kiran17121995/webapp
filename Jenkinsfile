@@ -43,7 +43,7 @@ pipeline {
 				}
 		stage ('create container and run') {
 			steps {
-				sh 'docker run -itd -p 90:8080 tomcat:1'
+				sh 'docker run -itdv /mnt/jenkins/webapp/target:/usr/local/tomcat/webapps -p 90:8080  tomcat:1'
 			}
 		}				
     }
