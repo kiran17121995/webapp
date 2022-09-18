@@ -38,7 +38,7 @@ pipeline {
 		
 		stage ('build dockerimage') {
 			steps {
-				sh 'docker build -t tomcat:1 /mnt/jenkins/webapp'
+				sh 'docker build -t tomcat:1 /mnt/jenkins/'
 				}
 				}
 		stage ('create container and run') {
