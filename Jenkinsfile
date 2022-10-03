@@ -24,7 +24,7 @@ pipeline {
 		stage ('cp file dev1 and run con1') {
 			steps {
 				sh 'sudo su - qtrader'
-				sh 'scp -i /mnt/docker/target/*.war qtrader@10.0.1.234:/mnt'
+				sh 'scp /mnt/docker/target/*.war qtrader@10.0.1.234:/mnt'
 				sh 'ssh 10.0.1.234'
 				sh 'docker run -itdv /mnt/*.war:/usr/local/tomcat/webapps -p 8090:8080--name dev1deploy tomcat:9'
 				sh 'exit'
@@ -33,7 +33,7 @@ pipeline {
 		
 		stage ('cp file dev2 and run container2') {
 			steps {
-				sh 'scp -i /mnt/docker/target/*.war qtrader@10.0.2.214:/mnt' 
+				sh 'scp /mnt/docker/target/*.war qtrader@10.0.2.214:/mnt' 
 				sh 'ssh 10.0.2.214'
 				sh 'docker run -itdv /mnt/*.war:/usr/local/tomcat/webapps -p 8020:8080--name dev2deploy tomcat:9'
 				sh 'exit'
