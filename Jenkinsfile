@@ -12,6 +12,7 @@ pipeline {
                 
                     sh 'mvn clean compile'
                 }
+		}
 
         stage ('Install Stage') {
             steps {
@@ -38,6 +39,5 @@ pipeline {
 				sh 'exit'
 			}
 		}				
-    }
-	
+	}	
 }
