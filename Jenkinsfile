@@ -12,15 +12,6 @@ pipeline {
                 
                     sh 'mvn clean compile'
                 }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                
-                    sh 'mvn test'
-                }
-        }
 
         stage ('Install Stage') {
             steps {
@@ -29,20 +20,22 @@ pipeline {
                 }
             }
 			
-		stage ('start docker') {
+		stage ('cp file dev1 and run con1') {
 			steps {
-				sh 'systemctl start docker'
+				sh 'sudo su - ansible'
+				sh 'scp -i /mnt/docker/target/*.war qtrader@10.0.1.234:/mnt'
+				sh 'ssh 10.0.1.234'
+				sh 'docker run -itdv /mnt/*.war:/usr/local/tomcat/webapps -p 8090:8080--name dev1deploy tomcat:9'
+				sh 'exit'
 			}
 		}
 		
-		stage ('build dockerimage') {
+		stage ('cp file dev2 and run container2') {
 			steps {
-				sh 'docker build -t tomcat:2 .'
-				}
-				}
-		stage ('create container and run') {
-			steps {
-				sh 'docker run -itdv /mnt/docker/target:/usr/local/tomcat/webapps -p 90:8080  tomcat:2'
+				sh 'scp -i /mnt/docker/target/*.war qtrader@10.0.2.214:/mnt' 
+				sh 'ssh 10.0.2.214'
+				sh 'docker run -itdv /mnt/*.war:/usr/local/tomcat/webapps -p 8020:8080--name dev2deploy tomcat:9'
+				sh 'exit'
 			}
 		}				
     }
